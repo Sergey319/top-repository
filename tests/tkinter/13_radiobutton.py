@@ -57,7 +57,7 @@ from itertools import chain
 #
 #position = {"padx": 6, "pady": 6, "anchor": NW}
 #languages = ["Python", "JavaScript", "Java", "C#"]
-#selected_language = StringVar()  # по умолчанию ничего не выборанно
+#selected_language = StringVar()  # по умолчанию ничего не выбрано
 #
 #header = ttk.Label(text="Выберите язык")
 #header.pack(**position)
