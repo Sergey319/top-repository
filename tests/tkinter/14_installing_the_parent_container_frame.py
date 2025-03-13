@@ -1,0 +1,69 @@
+from tkinter import *
+from tkinter import ttk
+
+"""Установка родительского контейнера"""
+"""Каждый виджет, кроме окна, располагается в определенном родительском контейнере. Например:"""
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("250x200")
+#
+#lbl = ttk.Label(text="Hello")
+#lbl.pack()
+#
+#root.mainloop()
+"""В данном случае это не имеет смысла, кнопка по умолчанию добавляется в окно. Однако также мы можем определять вложенные контейнеры. В частности, для в Tkinter предназначен виджет Frame."""
+"""Frame"""
+"""Frame отображает прямоугольник и обычно применяется для организации интерфейса в отдельные блоки. Некоторые основные параметры, которые мы можем установить через конструктор класса Frame:"""
+#borderwidth: толщина границы фрейма, по умолчанию равно 0
+#relief: определяет тип границы, может принимать значения SUNKEN, RAISED, GROOVE, RIDGE
+#cursor: устанавливает курсор при наведении на фрейм
+#height: высота фрейма
+#width: ширина фрейма
+#padding: отступы от вложенного содержимого до границ фрейма
+"""Используем фреймы:"""
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("250x200")
+#
+#frame = ttk.Frame(borderwidth=1, relief=SOLID,
+#                  padding=[8, 10])
+#name_label = ttk.Label(frame, text="Введите имя")
+#name_label.pack(anchor=NW)
+#
+#name_entry = ttk.Entry(frame)
+#name_entry.pack(anchor=NW)
+#
+#frame.pack(anchor=NW, fill=X, padx=5, pady=5)
+#
+#root.mainloop()
+"""Здесь фрейм имеет границу толщиной в 1 пиксель. Граница представляет обычную линию (relief=SOLID). Также для фрейма заданы внутренние отступы: 8 по горизонтали и 10 по вертикали. Для установки отступов можно использовать следующие формы:"""
+#padding=10              # устанавливает общий отступ в 10 единиц
+#padding=[8, 10]         # отступ по горизонтали - 8, отступ по вертикали - 10
+#padding=[8, 10, 6, 5]   # отступ слева 8, сверху - 10, справа - 6 и снизу 5
+"""В сам фрейм добавляются два других виджета: Label и Entry. Для этого для обоих виджетов указываем фрейм в качестве родительского контейнера."""
+"""При этом мы можем вынести во вне создание фрейма:"""
+#def create_frame(label_text):
+#    frame = ttk.Frame(borderwidth=1, relief=SOLID,
+#                      padding=[8, 10])
+#    # добавляем на фрейм метку
+#    label = ttk.Label(frame, text=label_text)
+#    label.pack(anchor=NW)
+#    # добавляем на фрейм текстовое поле
+#    entry = ttk.Entry(frame)
+#    entry.pack(anchor=NW)
+#    # возвращаем фрейм из функции
+#    return frame
+#
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("250x200")
+#
+#name_frame = create_frame("Введите имя")
+#name_frame.pack(anchor=NW, fill=X, padx=5, pady=5)
+#
+#email_frame = create_frame("Введите email")
+#email_frame.pack(anchor=NW, fill=X, padx=5, pady=5)
+#
+#root.mainloop()
+"""Здесь для создания фрейма определена функция create_frame, которая возвращает фрейм с меткой и текстовым полем. Далее создаем с помощью этой функции два фрейма и добавляем их в окно:"""
