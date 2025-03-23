@@ -4,7 +4,7 @@ from tkinter import ttk
 day = Tk()
 
 day.title("Подсчёт одного дня")
-day.geometry("1600x900+150+50")
+day.geometry("1000x600+50+50")
 
 for c in range(16):
     day.columnconfigure(index=c, weight=1)
