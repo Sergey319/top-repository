@@ -1,38 +1,40 @@
-from models.hot_dog import HotDog, Sauce, Order
-from views.hot_dog_view import HotDogView
-
-view = HotDogView()
+from models.model import *
+from controllers.controller import *
+from views.view import *
+hr = "\u2015" * 17
 
 def main_menu():
     min_hd = HotDog("Маленький", 100)
     normal_hd = HotDog("Средний", 150)
     max_hd = HotDog("Большой", 200)
-    print("Добро пожаловать!\n" + hr)
+    print(hr + "\nДОБРО ПОЖАЛОВАТЬ!")
+    order = Order([], [], [], 0)
     while True:
-        print("Выберите хот-дог:")
-        print(f"1. {min_hd}\n2. {normal_hd}\n3. {max_hd}\n0. Выход\n" + hr)
-        choice = input("-> ")
-        print(hr)
-        match choice:
-            case "0": break
-            case "1": sauce_menu(min_hd)
-            case "2": Order(normal_hd); sauce_menu(normal_hd)
-            case "3": Order(max_hd); sauce_menu(max_hd)
-            case _ : pass
-
-def sauce_menu(hot_dog):
-    view.display_hot_dog_info(hot_dog)
-    mustard = Sauce("горчица", 20)
-    ketchup = Sauce("кетчуп", 30)
-    mayonnaise = Sauce("майонез", 40)
-    while True:
-        print(hr + f"\nВыберите соус:\n1. {mustard}\n2. {ketchup}\n3. {mayonnaise}\n4. Без соуса\n0. Назад\n" + hr)
+        print(hr + f"\nВыберите хот-дог:\n1. {min_hd}\n2. {normal_hd}\n3. {max_hd}\n0. Выход\n" + hr)
         choice = input("-> ")
         match choice:
+            case "1": add_hd_order(order, min_hd); order_view(order); sauce_menu(order)
+            case "2": add_hd_order(order, normal_hd); order_view(order); sauce_menu(order)
+            case "3": add_hd_order(order, max_hd); order_view(order); sauce_menu(order)
             case "0": break
+            case _: pass
 
+def sauce_menu(order):
+    mustard = Sauce("Горчица", 10)
+    ketchup = Sauce("Кетчуп", 20)
+    mayonnaise = Sauce("Майонез", 30)
+    while True:
+        print(hr + f"\nВыберите соус:\n1. {mustard}\n2. {ketchup}\n3. {mayonnaise}\n0. Назад\n" + hr)
+        choice = input("-> ")
+        match choice:
+            case "1": add_sauce_order(order, mustard); order_view(order)
+            case "2": add_sauce_order(order, ketchup); order_view(order)
+            case "3": add_sauce_order(order, mayonnaise); order_view(order)
+            case "0": break
+            case _: pass
 
+def main():
+    main_menu()
 
 if __name__ == "__main__":
-    hr = "\u2015" * 20
-    main_menu()
+    main()
