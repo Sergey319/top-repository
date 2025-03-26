@@ -18,4 +18,9 @@ class Ingredient:
     def __str__(self):
         return f"{self.name}"
 
+class Warehouse:
+    def __init__(self, warehouse):
+        self.warehouse = warehouse
 
+    def __str__(self):
+        return f"{self.warehouse}"
