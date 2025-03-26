@@ -1,4 +1,5 @@
 from models.model import *
+from controller import *
 from views.view import *
 
 # хот-дог
@@ -21,14 +22,17 @@ standard_hd = HotDog("Стандарт", [bun, sausage, ketchup])
 spicy_hd = HotDog("Острый", [bun, sausage, mustard, chile])
 special_hd = HotDog("Особый", [bun, sausage, mayonnaise, jalapeno, onion])
 
+warehouse = []
+
 hr = "\u2015" * 50
 
 def main():
-    print(hr + "\nД О Б Р О   П О Ж А Л О В А Т Ь ! ! !\n" + hr)
+    print("_" * 80)
+    print(hr + "\n" + " " * 20 + "Д О Б Р О   П О Ж А Л О В А Т Ь ! ! !\n" + hr)
+    orders = []
+    main_menu(orders)
 
-    main_menu()
-
-def main_menu():
+def main_menu(orders):
     while True:
         print(f"Выберите Хот-Дог или создайте свой рецепт:")
         print(f"1. {hd_view(standard_hd)}\n"
@@ -38,9 +42,9 @@ def main_menu():
               f"0. Выход\n" + hr)
         choice = input("-> ")
         match choice:
-            case "1": order_view(standard_hd)
-            case "2": pass
-            case "3": pass
+            case "1": add_order(orders, standard_hd)
+            case "2": add_order(orders, spicy_hd)
+            case "3": add_order(orders, special_hd)
             case "4": pass
             case "0": break
             case _: pass
