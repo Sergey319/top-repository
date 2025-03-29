@@ -1,4 +1,5 @@
 from model import *
+from controller import *
 
 
 def main():
@@ -35,21 +36,12 @@ def main():
               f"0. Выход\n" + hr)
         choice = input("-> ")
         match choice:
-            case "1": pass
+            case "1": update_order(orders, standard_hd)
             case "2": pass
             case "3": pass
             case "4": pass
             case "5": pass
             case "0": break
-
-
-
-
-
-
-
-
-
 
 
 

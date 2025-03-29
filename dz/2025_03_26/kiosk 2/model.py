@@ -22,7 +22,7 @@ class Orders:
         self.orders = []
 
     def add_order(self, hd):
-        self.orders.append(hd)
+        return self.orders.append(hd)
 
     def get_orders(self):
         return self.orders
@@ -36,6 +36,9 @@ class Reserve:
 
     def add_reserve(self, ingredients):
         self.reserve.append(ingredients)
+
+    def sub_reserve(self, ingredients):
+        self.reserve.remove(ingredients)
 
     def sub_reserve(self, ingredients):
         self.reserve.remove(ingredients)
