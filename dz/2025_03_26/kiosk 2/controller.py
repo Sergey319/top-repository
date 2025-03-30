@@ -2,6 +2,8 @@ from model import *
 from view import *
 
 
-def update_order(orders, hd):
-    Orders.add_order(orders, hd)
-    display_order(orders)
+def add_hd_in_order(orders, hd, reserve):
+    orders.add_orders(hd)
+    for ingredient in hd.ingredients:
+        reserve.sub_reserve(ingredient)
+    OrderView.display_order(orders)

@@ -15,6 +15,18 @@ def main():
     chili = Ingredient("чили", 40, 15)
     cucumber = Ingredient("солёный огурец", 50, 20)
 
+    reserve = Reserve()
+    for _ in range(10):
+        reserve.add_reserve(bread)
+        reserve.add_reserve(sausage)
+        reserve.add_reserve(ketchup)
+        reserve.add_reserve(mustard)
+        reserve.add_reserve(mayonnaise)
+        reserve.add_reserve(onion)
+        reserve.add_reserve(jalapeno)
+        reserve.add_reserve(chili)
+        reserve.add_reserve(cucumber)
+
     standard_hd = HotDog("Стандарт", [bread, sausage, ketchup])
     spicy_hd = HotDog("Острый", [bread, sausage, mustard, chili])
     special_hd = HotDog("Особый", [bread, sausage, mayonnaise, cucumber])
@@ -36,9 +48,9 @@ def main():
               f"0. Выход\n" + hr)
         choice = input("-> ")
         match choice:
-            case "1": update_order(orders, standard_hd)
-            case "2": pass
-            case "3": pass
+            case "1": add_hd_in_order(orders, standard_hd, reserve)
+            case "2": add_hd_in_order(orders, spicy_hd, reserve)
+            case "3": add_hd_in_order(orders, special_hd, reserve)
             case "4": pass
             case "5": pass
             case "0": break

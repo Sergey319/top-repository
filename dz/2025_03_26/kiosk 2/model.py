@@ -17,15 +17,9 @@ class Ingredient:
         self.price = price
         self.purchase_price = purchase_price
 
-class Orders:
-    def __init__(self):
-        self.orders = []
 
-    def add_order(self, hd):
-        return self.orders.append(hd)
 
-    def get_orders(self):
-        return self.orders
+
 
 class Reserve:
     def __init__(self):
@@ -34,11 +28,21 @@ class Reserve:
     def get_reserve(self):
         return self.reserve
 
-    def add_reserve(self, ingredients):
-        self.reserve.append(ingredients)
+    def add_reserve(self, ingredient):
+        return self.reserve.append(ingredient)
 
-    def sub_reserve(self, ingredients):
-        self.reserve.remove(ingredients)
+    def sub_reserve(self, ingredient):
+        return self.reserve.remove(ingredient)
 
-    def sub_reserve(self, ingredients):
-        self.reserve.remove(ingredients)
+class Orders:
+    def __init__(self):
+        self.orders = []
+
+    def get_orders(self):
+        return self.orders
+
+    def add_orders(self, hd):
+        return self.orders.append(hd)
+
+    def sub_orders(self, hd):
+        return self.orders.remove(hd)
