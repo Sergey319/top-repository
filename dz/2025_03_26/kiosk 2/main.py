@@ -32,6 +32,7 @@ def main():
     special_hd = HotDog("Особый", [bread, sausage, mayonnaise, cucumber])
 
     orders = Orders()
+    controllers = OrdersController()
 
     hr = "\u2015" * 50
 
@@ -48,9 +49,9 @@ def main():
               f"0. Выход\n" + hr)
         choice = input("-> ")
         match choice:
-            case "1": add_hd_in_order(orders, standard_hd, reserve)
-            case "2": add_hd_in_order(orders, spicy_hd, reserve)
-            case "3": add_hd_in_order(orders, special_hd, reserve)
+            case "1": controllers.add_hd_in_order(orders, standard_hd, reserve)
+            case "2": controllers.add_hd_in_order(orders, spicy_hd, reserve)
+            case "3": controllers.add_hd_in_order(orders, special_hd, reserve)
             case "4": pass
             case "5": pass
             case "0": break
