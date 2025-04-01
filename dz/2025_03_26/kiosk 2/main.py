@@ -30,6 +30,7 @@ def main():
     standard_hd = HotDog("Стандарт", [bread, sausage, ketchup])
     spicy_hd = HotDog("Острый", [bread, sausage, mustard, chili])
     special_hd = HotDog("Особый", [bread, sausage, mayonnaise, cucumber])
+    hd = HotDog("Собственный", [bread, sausage])
 
     orders = Orders()
     controllers = OrdersController()
@@ -52,9 +53,12 @@ def main():
             case "1": controllers.add_hd_in_order(orders, standard_hd, reserve)
             case "2": controllers.add_hd_in_order(orders, spicy_hd, reserve)
             case "3": controllers.add_hd_in_order(orders, special_hd, reserve)
-            case "4": pass
+            case "4": create_your_own_recipe(reserve, hd)
             case "5": pass
             case "0": break
+
+def create_your_own_recipe(reserve, hd):
+    pass
 
 
 
