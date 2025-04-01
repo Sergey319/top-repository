@@ -28,6 +28,9 @@ class Reserve:
     def get_reserve(self):
         return self.reserve
 
+    def get_count_ingredient_in_reserve(self, ingredient):
+        return self.reserve.count(ingredient)
+
     def add_reserve(self, ingredient):
         return self.reserve.append(ingredient)
 
