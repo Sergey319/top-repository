@@ -1,7 +1,7 @@
 from models import *
+from main import *
 
-class ReserveView:
-    def display_reserve(self, reserve):
-        for ingredient in reserve.get_reserve():
-            print(f"{ingredient.name}")
-        print(reserve.budget)
+#class ReserveView:
+#def __init__(self):
+
+

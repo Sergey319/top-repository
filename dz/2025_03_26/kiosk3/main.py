@@ -1,10 +1,12 @@
 from controllers import *
 
+from views import *
+
 hr = "\u2015" * 50
-budget = 10000
+budget = 1000
 reserve = Reserve(budget)
-#controller_purchase = PurchaseController()
-view_reserve = ReserveView()
+
+#view_reserve = ReserveView()
 
 
 bread = Ingredient("булка", 50, 30)
@@ -19,10 +21,17 @@ jalapeno = Ingredient("халапеньо", 40, 15)
 chili = Ingredient("чили", 40, 15)
 cucumber = Ingredient("солёный огурец", 50, 20)
 
+standard_hd = HotDog("Стандарт", [bread, sausage, ketchup])
+spicy_hd = HotDog("Острый", [bread, sausage, mustard, chili])
+special_hd = HotDog("Особый", [bread, sausage, mayonnaise, cucumber])
+hd = HotDog("Собственный", [bread, sausage])
+
+ingredients = [bread, sausage, ketchup, mustard, mayonnaise, onion, jalapeno, chili, cucumber]
+
 
 def purchase_of_ingredients():
     while True:
-        print(f"Бюджет киоска {reserve.budget} руб.\n" + hr)
+        print(hr + f"\nБюджет киоска {reserve.budget} руб.\n" + hr)
         print(f"Выберите ингредиент для закупки:\n"
               f"1. {bread.name} - {bread.purchase_price} руб.\n"
               f"2. {sausage.name} - {sausage.purchase_price} руб.\n"
@@ -37,16 +46,16 @@ def purchase_of_ingredients():
               f"11. Продолжить")
         choice = input("-> ")
         match choice:
-            case "1": ingredient = bread; count = count_ingredients(); purchase(reserve, ingredient, count)
-            case "2": ingredient = sausage; count = count_ingredients(); purchase(reserve, ingredient, count)
-            case "3": ingredient = ketchup; count = count_ingredients(); purchase(reserve, ingredient, count)
-            case "4": ingredient = mustard; count = count_ingredients(); purchase(reserve, ingredient, count)
-            case "5": ingredient = mayonnaise; count = count_ingredients(); purchase(reserve, ingredient, count)
-            case "6": ingredient = onion; count = count_ingredients(); purchase(reserve, ingredient, count)
-            case "7": ingredient = jalapeno; count = count_ingredients(); purchase(reserve, ingredient, count)
-            case "8": ingredient = chili; count = count_ingredients(); purchase(reserve, ingredient, count)
-            case "9": ingredient = cucumber; count = count_ingredients(); purchase(reserve, ingredient, count)
-            case "10": auto_purchase(); break
+            case "1": ReserveControllers(reserve, bread, count_ingredients()).purchase()
+            case "2": ReserveControllers(reserve, sausage, count_ingredients()).purchase()
+            case "3": ReserveControllers(reserve, ketchup, count_ingredients()).purchase()
+            case "4": ReserveControllers(reserve, mustard, count_ingredients()).purchase()
+            case "5": ReserveControllers(reserve, mayonnaise, count_ingredients()).purchase()
+            case "6": ReserveControllers(reserve, onion, count_ingredients()).purchase()
+            case "7": ReserveControllers(reserve, jalapeno, count_ingredients()).purchase()
+            case "8": ReserveControllers(reserve, chili, count_ingredients()).purchase()
+            case "9": ReserveControllers(reserve, cucumber, count_ingredients()).purchase()
+            case "10": ReserveControllers(reserve, ingredients=ingredients).auto_purchase()
             case "11": break
             case _: pass
 
@@ -60,20 +69,17 @@ def count_ingredients():
         else:
             return count
 
-def auto_purchase():
-    ingredients = [bread, sausage, ketchup, mustard, mayonnaise, onion, jalapeno, chili, cucumber]
-    while True:
-        if reserve.budget > 0:
-            for ingredient in ingredients:
-                if reserve.budget >= ingredient.purchase_price:
-                    reserve.budget -= ingredient.purchase_price
-                    reserve.add_ingredient(ingredient)
-        else:
-            break
+
+
+def display_reserve():
+    print("Список закупленных ингредиентов:")
+    for ingredient in ingredients:
+        print(f"{ingredient.name} - {reserve.reserve.count(ingredient)}")
 
 def main():
-    pass
+    purchase_of_ingredients()
+    print(hr)
+    display_reserve()
 
 if __name__ == "__main__":
-    purchase_of_ingredients()
     main()
