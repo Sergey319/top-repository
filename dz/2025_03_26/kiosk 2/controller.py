@@ -1,4 +1,4 @@
-
+from model import *
 from view import *
 
 class OrdersController:
@@ -16,3 +16,9 @@ class OrdersController:
         if order == True:
             orders.add_orders(hd)
         OrderView.display_order(orders)
+
+class HDController:
+    def add_ingredient(self, hd, ingredient):
+        ingredients = hd.ingredients
+        ingredients.append(ingredient)
+        return hd

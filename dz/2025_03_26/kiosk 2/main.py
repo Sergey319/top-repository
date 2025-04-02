@@ -15,6 +15,9 @@ def main():
     chili = Ingredient("чили", 40, 15)
     cucumber = Ingredient("солёный огурец", 50, 20)
 
+    sauces = [ketchup, mustard, mayonnaise]
+    toppings = [onion, jalapeno, chili, cucumber]
+
     reserve = Reserve()
     for _ in range(10):
         reserve.add_reserve(bread)
@@ -33,7 +36,7 @@ def main():
     hd = HotDog("Собственный", [bread, sausage])
 
     orders = Orders()
-    controllers = OrdersController()
+    controller_orders = OrdersController()
 
     hr = "\u2015" * 50
 
@@ -50,15 +53,32 @@ def main():
               f"0. Выход\n" + hr)
         choice = input("-> ")
         match choice:
-            case "1": controllers.add_hd_in_order(orders, standard_hd, reserve)
-            case "2": controllers.add_hd_in_order(orders, spicy_hd, reserve)
-            case "3": controllers.add_hd_in_order(orders, special_hd, reserve)
-            case "4": create_your_own_recipe(reserve, hd)
+            case "1": controller_orders.add_hd_in_order(orders, standard_hd, reserve)
+            case "2": controller_orders.add_hd_in_order(orders, spicy_hd, reserve)
+            case "3": controller_orders.add_hd_in_order(orders, special_hd, reserve)
+            case "4": create_your_own_recipe(reserve, hd, sauces, toppings, hr)
             case "5": pass
             case "0": break
 
-def create_your_own_recipe(reserve, hd):
-    pass
+def create_your_own_recipe(reserve, hd, sauces, toppings, hr):
+    controller_hd = HDController()
+    print(hr)
+    print(" " * 21 + "СОЗДАТЬ СВОЙ РЕЦЕПТ")
+    while True:
+        print(hr)
+        print(f"Хот-дог: {hd}")
+        print("Выберите соус:")
+        for i in range(len(sauces)):
+            print(f"{i + 1}. {sauces[i].name} - {sauces[i].price} руб.")
+        print(f"4. Назад" + hr)
+        choice = input("-> ")
+        match choice:
+            case "1": controller_hd.add_ingredient(hd, sauces[0].name)
+            case "2": pass
+            case "3": pass
+            case "4": break
+            case _: pass
+        break
 
 
 
