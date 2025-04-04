@@ -30,6 +30,10 @@ class ReserveControllers:
             else:
                 return self.reserve
 
+class OrdersControllers:
+    def controller_add_order(self, orders, hd):
+        return orders.add_order(hd)
+
 
 
 

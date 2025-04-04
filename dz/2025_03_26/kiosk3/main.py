@@ -5,7 +5,7 @@ from views import *
 hr = "\u2015" * 50
 budget = 1000
 reserve = Reserve(budget)
-
+orders = Orders()
 #view_reserve = ReserveView()
 
 
@@ -69,17 +69,34 @@ def count_ingredients():
         else:
             return count
 
-
-
 def display_reserve():
     print("Список закупленных ингредиентов:")
     for ingredient in ingredients:
-        print(f"{ingredient.name} - {reserve.reserve.count(ingredient)}")
+        print(f"{ingredient.name} - {reserve.reserve.count(ingredient)} шт.")
+
+def main_menu():
+    while True:
+        print("Выберите хот-дог для заказа:")
+        print(f"1. {standard_hd.name} - {standard_hd.price} руб.\n"
+              f"2. {spicy_hd.name} - {spicy_hd.price} руб.\n"
+              f"3. {special_hd.name} - {special_hd.price} руб.\n"
+              f"4. Создать свой рецепт\n"
+              f"5. Перейти к оплате\n" + hr)
+        choice = input("-> ")
+        match choice:
+            case "1": orders.add_order(standard_hd)
+            case "2": pass
+            case "3": pass
+            case "4": pass
+            case "5": pass
+        break
 
 def main():
     purchase_of_ingredients()
     print(hr)
     display_reserve()
+    print(hr)
+    main_menu()
 
 if __name__ == "__main__":
     main()

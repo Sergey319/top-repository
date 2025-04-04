@@ -21,5 +21,15 @@ class Ingredient:
 class HotDog:
     def __init__(self, name, ingredients):
         self.name = name
-        self.ingredients =ingredients
+        self.ingredients = ingredients
+        self.price = 0
+        for ingredient in self.ingredients:
+            self.price += ingredient.price
 
+
+class Orders:
+    def __init__(self):
+        self.orders = []
+
+    def add_order(self, hd):
+        return self.orders.append(hd)
