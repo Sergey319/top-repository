@@ -79,3 +79,66 @@ from tkinter import ttk
 #root.mainloop()
 """Для манипулирования элемента списка здесь определенно две кнопки. Первая кнопка вызывает функцию add(), которая получает введенное в текстовое поле значение и добавляет его на первое место в списке с помощью метода insert()."""
 """Вторая кнопка по нажатию удаляет выделенный элемент. Для этого мы сначала получаем выделенные индексы через метод curselection(). Так как в нашем случае выделяется только один элемент, то получаем его индекс через выражение selection[0]. И этот индекс передаем в метод delete() для удаления."""
+"""Подобным образом мы можем управлять элементами, если Listbox привязан к переменной типа Var/StringVar:"""
+## добавление нового элемента
+#def add():
+#    new_language = language_entry.get()
+#    languages_listbox.insert(0, new_language)
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("300x250")
+#root.columnconfigure(index=0, weight=4)
+#root.columnconfigure(index=1, weight=1)
+#root.rowconfigure(index=0, weight=1)
+#root.rowconfigure(index=1, weight=3)
+#
+#languages = ["Python", "C#"]
+#languages_var = StringVar(value=languages)
+#
+## текстовое поле и кнопка для добавления в список
+#language_entry = ttk.Entry()
+#language_entry.grid(column=0, row=0, padx=6, pady=6, sticky=EW)
+#ttk.Button(text="Добавить", command=add).grid(column=1, row=0, padx=6, pady=6)
+#
+## создаем список
+#languages_listbox = Listbox(listvariable=languages_var)
+#languages_listbox.grid(row=1, column=0, sticky=NSEW, padx=5, pady=5)
+#
+#root.mainloop()
+"""Для упрощения здесь я убрал код для удаления, потому что суть будет та же.
+А именно: у нас есть стандартный список строк languages и есть переменная languages_var, которая использует этот список и к которой привязан Listbox.
+Все операции с элементами внутри Listbox, например, добавление с помощью вызова languages_listbox.insert(0, new_language) повлияют на переменную languages_var - она изменит свое значение.
+Но! изначальный список строк languages останется без изменений"""
+"""Что если нам также надо сам изначальный список languages, особенно когда у нас в программе несколько функциональных частей, которые используют этот список и которые должны быть синхронизированы?
+В этом случае мы можем добавлять и удалять элементы напрямую в списке languages, но тогда необходимо переустанавливать значение переменной languages_var, к которой привязан Listbox:"""
+# добавление нового элемента
+def add():
+    new_language = language_entry.get()
+    # добавляем новый элемент в список languages
+    languages.append(new_language)
+    # переустанавливаем значение переменной languages_var
+    languages_var.set(languages)
+
+root = Tk()
+root.title("METANIT.COM")
+root.geometry("300x250")
+root.columnconfigure(index=0, weight=4)
+root.columnconfigure(index=1, weight=1)
+root.rowconfigure(index=0, weight=1)
+root.rowconfigure(index=1, weight=3)
+
+# базовый список
+languages = ["Python", "C#"]
+languages_var = StringVar(value=languages)
+
+# текстовое поле и кнопка для добавления в список
+language_entry = ttk.Entry()
+language_entry.grid(column=0, row=0, padx=6, pady=6, sticky=EW)
+ttk.Button(text="Добавить", command=add).grid(column=1, row=0, padx=6, pady=6)
+
+# создаем список
+languages_listbox = Listbox(listvariable=languages_var)
+languages_listbox.grid(row=1, column=0, columnspan=2, sticky=NSEW, padx=5, pady=5)
+
+root.mainloop()
