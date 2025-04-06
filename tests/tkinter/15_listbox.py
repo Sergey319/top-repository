@@ -112,33 +112,73 @@ from tkinter import ttk
 Но! изначальный список строк languages останется без изменений"""
 """Что если нам также надо сам изначальный список languages, особенно когда у нас в программе несколько функциональных частей, которые используют этот список и которые должны быть синхронизированы?
 В этом случае мы можем добавлять и удалять элементы напрямую в списке languages, но тогда необходимо переустанавливать значение переменной languages_var, к которой привязан Listbox:"""
-# добавление нового элемента
-def add():
-    new_language = language_entry.get()
-    # добавляем новый элемент в список languages
-    languages.append(new_language)
-    # переустанавливаем значение переменной languages_var
-    languages_var.set(languages)
-
-root = Tk()
-root.title("METANIT.COM")
-root.geometry("300x250")
-root.columnconfigure(index=0, weight=4)
-root.columnconfigure(index=1, weight=1)
-root.rowconfigure(index=0, weight=1)
-root.rowconfigure(index=1, weight=3)
-
-# базовый список
-languages = ["Python", "C#"]
-languages_var = StringVar(value=languages)
-
-# текстовое поле и кнопка для добавления в список
-language_entry = ttk.Entry()
-language_entry.grid(column=0, row=0, padx=6, pady=6, sticky=EW)
-ttk.Button(text="Добавить", command=add).grid(column=1, row=0, padx=6, pady=6)
-
-# создаем список
-languages_listbox = Listbox(listvariable=languages_var)
-languages_listbox.grid(row=1, column=0, columnspan=2, sticky=NSEW, padx=5, pady=5)
-
-root.mainloop()
+## добавление нового элемента
+#def add():
+#    new_language = language_entry.get()
+#    # добавляем новый элемент в список languages
+#    languages.append(new_language)
+#    # переустанавливаем значение переменной languages_var
+#    languages_var.set(languages)
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("300x250")
+#root.columnconfigure(index=0, weight=4)
+#root.columnconfigure(index=1, weight=1)
+#root.rowconfigure(index=0, weight=1)
+#root.rowconfigure(index=1, weight=3)
+#
+## базовый список
+#languages = ["Python", "C#"]
+#languages_var = StringVar(value=languages)
+#
+## текстовое поле и кнопка для добавления в список
+#language_entry = ttk.Entry()
+#language_entry.grid(column=0, row=0, padx=6, pady=6, sticky=EW)
+#ttk.Button(text="Добавить", command=add).grid(column=1, row=0, padx=6, pady=6)
+#
+## создаем список
+#languages_listbox = Listbox(listvariable=languages_var)
+#languages_listbox.grid(row=1, column=0, columnspan=2, sticky=NSEW, padx=5, pady=5)
+#
+#root.mainloop()
+"""Режим и обработка выбора"""
+"""По умолчанию Listbox позволяет выбрать один элемент.
+Но с помощью параметра selectmode это поведение можно переопределить.
+Данный параметр принимает одно из следующих значений:"""
+# BROWSE: позволяет выбирать один элемент и перетаскивать его мышкой. Режим по умолчанию.
+# EXTENDED: позволяет выбрать группу элементов, выделив начальный и конечный элементы
+# SINGLE: позволяет выбрать один элемент, но не позволяет перетаскивать его мышкой
+# MULTIPLE: позволяет выбрать множество элементов, нажимая на строку элемента
+"""Например, установка выбора нескольких элементов:"""
+#languages_listbox = Listbox(listvariable=languages_var, selectmode=EXTENDED)
+"""Для обработки элементов в Listbox необходимо прикрепить функцию обработки к событию <<ListboxSelect>> с помощью метода bind:"""
+#listbox.bind("<<ListboxSelect>>", функция_обработки)
+"""Например, динамически обработаем выбор в списке:"""
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("250x200")
+#
+#def selected(event):
+#    # получаем индексы выделенных элементов
+#    selected_indices = languages_listbox.curselection()
+#    # получаем сами выделенные элементы
+#    selected_langs = ",".join([languages_listbox.get(i) for i in selected_indices])
+#    msg = f"вы выбрали: {selected_langs}"
+#    selection_label["text"] = msg
+#
+#languages = ["Python", "JavaScript", "C#", "Java"]
+#languages_var = Variable(value=languages)
+#
+#selection_label = ttk.Label()
+#selection_label.pack(anchor=NW, fill=X, padx=5, pady=5)
+#
+#languages_listbox = Listbox(listvariable=languages_var, selectmode=EXTENDED)
+#languages_listbox.pack(anchor=NW, fill=X, padx=5, pady=5)
+#languages_listbox.bind("<<ListboxSelect>>", selected)
+#
+#root.mainloop()
+"""В данном случае при изменении выбора в списке срабатывает функция selected.
+Функция должна принимать один параметр, который несет информацию о событии - здесь это параметр event.
+Хотя в данном случае он никак не используется."""
+"""В самой функции сначала получаем индексы выделенных элементов с помощью метода curselection(), затем в цикле получаем собственно элементы по этим индексам и создаем общую строку, которая затем выводится в элементе Label."""
