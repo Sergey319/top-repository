@@ -189,4 +189,14 @@ from tkinter import ttk
 # select_clear(first, last): снимает выделение с индекса first по индекс last. Если надо снять выделение только с одного элемента, то применяется только параметр first
 """Например, выделим элементы с 1 по 2 индексы:"""
 root = Tk()
-root.title("METANIT.COM")+++++++++++++++++++++++++++++++++++++++++++++
+root.title("METANIT.COM")
+root.geometry("250x200")
+
+languages = ["Python", "C#", "Java", "JavaScript"]
+languages_var = StringVar(value=languages)
+
+languages_listbox = Listbox(listvariable=languages_var, selectmode=EXTENDED)
+languages_listbox.pack(expand=1, fill=BOTH)
+languages_listbox.select_set(first=1, last=2)
+
+root.mainloop()
