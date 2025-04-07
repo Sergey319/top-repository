@@ -87,8 +87,47 @@ Entry и Listbox
 #languages_var.set(new_value)
 #combobox.set(new_value)
 """
-Для установки по идексу из привязанного набора значений также можно
+Для установки по индексу из привязанного набора значений также можно
 использовать метод current(newindex), где с помощью параметра newindex
 задается индекс выбранного значения. Например, выберем второй элемент:
 """
 #combobox.current(1)
+"""
+Отслеживание выбора значения
+"""
+"""
+Для обработки выбора элементов в Combobox необходимо прикрепить функцию
+обработки к событию <<ComboboxSelect>> с помощью метода bind:
+"""
+#combobox.bind("<<ComboboxSelect>>", функция_оброботки)
+"""
+Например, динамически обработаем выбор в Combobox:
+"""
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("250x200")
+#
+#def selected(event):
+#    # получаем выделенный элемент
+#    selection = combobox.get()
+#    print(selection)
+#    label["text"] = f"вы выбрали: {selection}"
+#
+#languages = ["Python", "C#", "Java", "JavaScript"]
+#label = ttk.Label()
+#label.pack(anchor=NW, fill=X, padx=5, pady=5)
+#
+#combobox = ttk.Combobox(values=languages, state="readonly")
+#combobox.pack(anchor=NW, fill=X, padx=5, pady=5)
+#combobox.bind("<<ComboboxSelected>>", selected)
+#
+#root.mainloop()
+"""
+В данном случае при изменении выбора в списке срабатывает функция selected.
+Функция должна принимать один параметр, который несет информацию о событии
+здесь этот параметр event. Хотя в данном случае он никак не используется.
+"""
+"""
+В самой функции получаем выбранный элемент и выводит соответствующую
+информацию на метку Label.
+"""
