@@ -74,4 +74,64 @@
     
     За определение шрифта в Tkinter отвечает класс Font из модуля tkinter.font. Он
 принимает следующие параметры:
+    * name: имя шрифта
+    * family: семейство шрифтов
+    * size: высота шрифта (в точках при положительном значении или в пикселях
+    при негативном значении)
+    * weight: вес шрифта. Принимает значение normal (обычный) или bold
+    (жирный)
+    * slant: наклон. Принимает значение roman (обычный) или italic (наклонный)
+    * underline: подчеркивание. Принимает значение True (с подчеркиванием)
+    или False (без подчеркивания)
+    * overstrike: зачеркивание. Принимает значения True с зачеркиванием) или False (без зачеркивания)
+    Для получения всех доступных семейств шрифтов на текущей платформе можно
+использовать функцию families() из модуля tkinter.font
+"""
+#from tkinter import *
+#from tkinter import font
+#
+#root = Tk()
+#
+#for family in font.families():
+#    print(family)
+"""
+    Пример применения шрифтов:
+"""
+#from tkinter import *
+#from tkinter import ttk
+#from tkinter import font
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("250x200")
+#
+#font1 = font.Font(family="Arial", size=11, weight="normal", slant="roman", underline=True, overstrike=True)
+#label1 = ttk.Label(text="Hello World", font=font1)
+#label1.pack(anchor=NW)
+#
+#font2 = font.Font(family="Verdana", size=11, weight="normal", slant="roman")
+#label2 = ttk.Label(text="Hello World", font=font2)
+#label2.pack(anchor=NW)
+#
+#root.mainloop()
+"""
+    Также можно использовать определение шрифта в виде строки:
+"""
+#from tkinter import *
+#from tkinter import ttk
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("250x200")
+#
+#label1 = ttk.Label(text="Hello World", font="Arial 11 normal roman")
+#label1.pack(anchor=NW)
+#
+#label2 = ttk.Label(text="Hello World", font="Verdana 11 normal roman")
+#label2.pack(anchor=NW)
+#
+#root.mainloop()
+"""
+    Например, в определении "Arial 11 normal roman", применяется семейство
+шрифта Arial, высота 11 единиц, нежирный шрифт без наклона.
 """
