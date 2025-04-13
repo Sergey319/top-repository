@@ -46,3 +46,25 @@ background, которые отвечают за цвет текста и фон
     Если нам даны отдельные коды RGB составляющих, то их можно сконвертировать в
 шестнадцатиричный код цвета:
 """
+#from tkinter import *
+#from tkinter import ttk
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("250x200")
+#
+#def get_rgb(rgb):
+#    return "#%02x%02x%02x" % rgb
+#
+#label = ttk.Label(text="Hello World",
+#                  padding=8,
+#                  foreground=get_rgb((0, 77, 64)),
+#                  background=get_rgb((128, 203, 196)))
+#label.pack(anchor=CENTER, expand=1)
+#
+#root.mainloop()
+"""
+    Здесь функция get_rgb в качестве параметра получает кортеж из трех
+составляющих цвет RGB и с помощью форматирования строки переводит значения
+кортежа в шестнадцатиричный код
+"""
