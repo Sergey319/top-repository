@@ -1,0 +1,177 @@
+"""
+
+    Добавление элементов на Canvas
+
+
+"""
+"""
+    Виджет Canvas предоставляет возможности рисования двухмерных фигур. Стоит
+отметить, что Canvas есть только в пакете tkinter, а в пакете tkinter.ttk аналог
+отсутствует.
+    Некоторые основные параметры Canvas:
+    * bg / background: фоновый цвет
+    * bd / border: граница
+    * borderwidth: толщина границы
+    * cursor: курсор
+    * height: высота виджета
+    * width: ширина виджета
+    По умолчанию Canvas представляет прямоугольную область:
+"""
+#from tkinter import *
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("300x300")
+#
+#canvas = Canvas(bg="white", width=250, height=250)
+#canvas.pack(anchor=CENTER, expand=1)
+#
+#root.mainloop()
+"""
+    Для двухмерного рисования Canvas предоставляет ряд методов:
+    * create_line(): рисует линию
+    * create_rectangle(): рисует прямоугольник
+    * create_oval(): рисует овал
+    * create_arc(): рисует дугу
+    * create_polygon(): рисует многоугольник
+    * create_text(): добавляет текст
+    * create_image(): добавляет изображение
+    * create_window(): добавляет виджет
+    В качестве результата все эти методы возвращают идентификатор добавленного
+элемента. Этот идентификатор в дальнейшем может использоваться для управления
+элементом. Рассмотрим применение этих методов.
+
+    Создание линии
+    
+    Для рисования линии применяется метод create_line(). Для вывода линии
+необходимо как минимум задать координаты точек, например:
+    create_line(__x0: float, __y0: float, __x1: float, __y1: float)
+    Параметры __x0 и __y0 представляют координаты начальной точки линии, а __x1 и
+__y1 - конечной.
+    Началом координат в Canvas считается верхний левый угол виджета - это точка с
+координатами (0;0). Таким образом, ось X направлена вправо, а ось Y - вниз.
+    Нарисуем простейшую линию:
+"""
+#from tkinter import *
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("300x300")
+#
+#canvas = Canvas(bg="white", width=250, height=250)
+#canvas.pack(anchor=CENTER, expand=1)
+#
+#canvas.create_line(10, 10, 200, 50)
+#
+#root.mainloop()
+"""
+    Кроме того у данного метода можно выделить ряд дополнительных параметров:
+    * arrow: помещает стрелку в начале линии (значение first), в конце (last) или на
+    обоих концах (both)
+    * arrowshape: позволяет изменить форму стрелки
+    * capstyle: если линия не имеет стрелки, то устанавливает, как завершается
+    линия. Принимает значения: butt (по умолчанию), projecting и round
+    * joinstyle: управляет соединением сегментов линии. Принимает значения: round
+    (по умолчанию), bevel и miter
+    * smooth: если значение "true" или "bezier", сглаживает сегменты линии
+    * splinesteps: управляет сглаживанием изогнутых линий
+    
+    Параметры отрисовки
+    
+    Методы отрисовки имеют ряд параметров, которые позволяют настроить
+стилизацию фигур. Некоторые из этих параметров:
+    * fill: цвет заполнения фигуры
+    * width: ширина линий
+    * outline: для заполненных фигур цвет контура
+    * dash: устанавливает пунктирную линию
+    * stipple: устанавливает шаблон для заполнения фигуры (например, gray75,
+    gray50, gray25, gray12)
+    * activefill: цвет заполнения фигуры при наведении курсора
+    * activewidth: ширина линии при наведении курсора
+    * activestipple: шаблон заполнения фигуры при наведении курсора
+    Применим некоторые параметры:
+"""
+#from tkinter import *
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("300x250")
+#
+#canvas = Canvas(bg="white", width=250, height=200)
+#canvas.pack(anchor=CENTER, expand=1)
+#
+#canvas.create_line(10, 10, 200, 50, activefill="red", fill="blue", dash=2)
+#canvas.create_line(10, 50, 200, 90, activefill="red", fill="blue", dash=2)
+#
+#root.mainloop()
+"""
+    В данном случае нарисованы две параллельные линии пунктиром синим цветом.
+При наведении на них указателя мыши, они окрашиваются в красный цвет.
+
+
+    Создание прямоугольника
+    
+    Для отрисовки прямоугольника применяется метод create_rectangle(), которому
+обязательно передается координаты верхнего левого и правого нижнего угла:
+    create_rectangle(__x0: float, __y0: float, __x1: float, __y1: float)
+    Применение метода:
+"""
+#from tkinter import *
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("300x250")
+#
+#canvas = Canvas(bg="white", width=250, height=200)
+#canvas.pack(anchor=CENTER, expand=1)
+#
+#canvas.create_rectangle(10, 20, 200, 60, fill="#80CBC4", outline="#004D40")
+#
+#root.mainloop()
+"""
+    Отрисовка овала
+    
+    Для отрисовки овала применяется метод create_oval(). В качестве обязательных
+параметров он принимает координаты прямоугольника, в который будет вписан
+овал:
+    create_oval(__x0: float, __y0: float, __x1: float, __y1: float)
+    Пример использования метода:
+"""
+#from tkinter import *
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("300x250")
+#
+#canvas = Canvas(bg="white", width=250, height=200)
+#canvas.pack(anchor=CENTER, expand=1)
+#
+#canvas.create_oval(10, 10, 200, 50, fill="#80CBC4", outline="#004D40")
+#canvas.create_rectangle(10, 10, 200, 50)
+#
+#root.mainloop()
+"""
+    Для наглядности здесь также отрисован прямоугольник, чтобы было видно как
+вписывается овал
+
+    Отрисовка многоугольника
+    
+    Для создания многоугольника применяется метод create_polygon(). Он принимает
+в качестве обязательных параметров набор координат точек:
+"""
+#from tkinter import *
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#
+#canvas = Canvas(bg="white", width=250, height=200)
+#canvas.pack(anchor=CENTER, expand=1)
+#
+#canvas.create_polygon(10, 30, 200, 200, 200, 30, fill="#80CBC4", outline="#004D40")
+#
+#root.mainloop()
+"""
+    В данном случае передаются координаты трех точек, которые в итоге станут
+вершинами треугольника
+    
+"""
