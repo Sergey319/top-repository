@@ -163,6 +163,7 @@ __y1 - конечной.
 #
 #root = Tk()
 #root.title("METANIT.COM")
+#root.geometry("300x250")
 #
 #canvas = Canvas(bg="white", width=250, height=200)
 #canvas.pack(anchor=CENTER, expand=1)
@@ -173,5 +174,57 @@ __y1 - конечной.
 """
     В данном случае передаются координаты трех точек, которые в итоге станут
 вершинами треугольника
+    Для упрощения также можно передать набор кортежей, где каждый кортеж
+представляет отдельную точку:
+    points = (
+        (10, 30),
+        (200, 200),
+        (200, 30)
+    )
+    canvas.create_polygon(*points, fill="#80CBC4", outline="#004D40")
+"""
+#from tkinter import *
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("300x250")
+#
+#canvas = Canvas(bg="white", width=250, height=200)
+#canvas.pack(anchor=CENTER, expand=1)
+#
+#points = (
+#        (10, 30),
+#        (200, 200),
+#        (200, 30),
+#)
+#canvas.create_polygon(*points, fill="#80CBC4", outline="#004D40")
+#
+#root.mainloop()
+"""
+    Отрисовка дуги
     
+    Для отрисовки дуги применяется метод create_arc(), который принимает набор
+точек:
+"""
+#from tkinter import *
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("300x250")
+#
+#canvas = Canvas(bg="white", width=250, height=200)
+#canvas.pack(anchor=CENTER, expand=1)
+#
+#canvas.create_arc((10, 10), (200, 200), fill="#80CBC4", outline="#004D40")
+#
+#root.mainloop()
+"""
+    Отображение текста
+    
+    Для вывода текста применяется метод create_text(). Ключевыми его параметрами
+являются координаты точки вывода текста, а также параметр text - сам
+выводимый текст.
+    При выводе текста стоит учитывать, что по умолчанию указанные координаты
+представляют центральную точку вывода текста. Но это поведение можно изменить
+с помощью опции anchor.
 """
