@@ -228,3 +228,122 @@ __y1 - конечной.
 представляют центральную точку вывода текста. Но это поведение можно изменить
 с помощью опции anchor.
 """
+#from tkinter import *
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("300x250")
+#
+#canvas = Canvas(bg="white", width=250, height=200)
+#canvas.pack(anchor=CENTER, expand=1)
+#
+#canvas.create_text(50, 50, text="Hello METANIT.COM", fill="#004D40")
+#
+#canvas.create_text(50, 100, anchor=NW, text="Hello METANIT.COM", fill="#004D40")
+#
+#root.mainloop()
+"""
+    Здесь два раза выводится один и то же текст. И в обоих случаях совпадает X-
+координата. Но во втором случае установлен параметр anchor: его значение "NW"
+указывает, что координаты будут представлять верхний левый угол прямоугольной
+области, в которой выводится текст
+    С помощью параметра font можно задать шрифт, в том числе его высоту:
+    canvas.creat_text(10, 10, font="Arial 14", anchor=NW, text="Hello METANIT.COM", fill="#004D40")
+    
+    Вывод изображения
+    
+    Для вывода изображения применяется метод creat_image(), который в качестве
+обязательного параметра принимает координаты изображения. Для установки самого
+изображения в метод через параметр image передается ссылка на изображение:
+"""
+#from tkinter import *
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("300x250")
+#
+#canvas = Canvas(bg="white", width=250, height=200)
+#canvas.pack(anchor=CENTER, expand=1)
+#
+#python_image = PhotoImage(file="python.png")
+#
+#canvas.create_image(10, 10, anchor=NW, image=python_image)
+#
+#root.mainloop()
+"""
+    В данном случае координаты представлены точкой с x=10 и y=10, а изображение
+представляет объект PhotoImage (здесь предполагается, что в одной папке с
+файлом программы находится файл "python.png"). Но как и в случае с выводом
+текста, следует учитывать, что по умолчанию координаты представляют цент
+изображения. Чтобы настроить положение изображения относительно координат,
+применяется параметр anchor. Так, в данном случае значение "NW" означает, что
+координата представляет верхний левый угол изображения.
+
+    Добавление виджетов
+    
+    Одной из замечательных особенностей Canvas является то, что он позволяет
+добавлять другие виджеты и таким образом создавать сложные по композиции
+интерфейсы. Для этого применяется метод create_window()
+    create_window(__x: float, __y: float, *, anchor: _Anchor = ..., height: _ScreenUnits = ..., state: Literal['normal', 'active', 'disabled'] = ..., tags: str | list[str] | tuple[str, ...] = ..., width: _ScreenUnits = ..., window: Widget = ...) -> _CanvasItemId
+    create_window(__coords: tuple[float, float] | list[int] | list[float], *, anchor: _Anchor = ..., height: _ScreenUnits = ..., state: Literal['normal', 'active', 'disabled'] = ..., tags: str | list[str] | tuple[str, ...] = ..., width: _ScreenUnits = ..., window: Widget = ...) -> _CanvasItemId
+    Параметры
+    * _x и _y или __coords: координаты точки размещения виджета. По умолчанию
+    представляет центр виджета
+    * _anchor: устанавливает положение виджета относительно координат
+    * height: высота виджета
+    * width: ширина виджета
+    * state: состояние виджета
+    * tags: набор тегов, связанных с виджетом
+    В качестве результата этот метод возвращает идентификатор добавленного метода.
+    Например, добавим кнопку:
+"""
+#from tkinter import *
+#from tkinter import ttk
+#
+#root = Tk()
+#root.title("METANIT.COM")
+#root.geometry("300x250")
+#
+#canvas = Canvas(bg="white", width=250, height=200)
+#canvas.pack(anchor=CENTER, expand=1)
+#
+#btn = ttk.Button(text="Click")
+#canvas.create_window(10, 20, anchor=NW, window=btn, width=100, height=50)
+#
+#root.mainloop()
+"""
+    В данном случае верхний левый угол кнопки будет иметь координаты (x=10, y=20),
+а сама кнопка имеет ширину 100 и высоту 50 единиц. Если ширина и высота явным
+образом не указаны, то они имеют значение по умолчанию.
+
+    Создание прокрутки
+    
+    Для создания прокрутки виджет Canvas предоставляет параметр, который
+позволяет установить прокручиваемую область:
+"""
+from tkinter import *
+from tkinter import ttk
+
+root = Tk()
+root.title("METANIT.COM")
+root.geometry("250x200")
+
+h = ttk.Scrollbar(orient=HORIZONTAL)
+v = ttk.Scrollbar(orient=VERTICAL)
+canvas = Canvas(scrollregion=(0, 0, 1000, 1000), bg="white", yscrollcommand=v.set, xscrollcommand=h.set)
+h["command"] = canvas.xview
+v["command"] = canvas.yview
+
+canvas.grid(column=0, row=0, sticky=(N, W, E, S))
+h.grid(column=0, row=1, sticky=(W, E))
+v.grid(column=1, row=0, sticky=(N, S))
+root.grid_columnconfigure(0, weight=1)
+root.grid_rowconfigure(0, weight=1)
+
+canvas.create_rectangle(10, 10, 300, 300, fill="red")
+
+root.mainloop()
+"""
+    В данном случае устанавливается прокручиваемая область 1000х1000:
+    canvas = Canvas(scrollregion=(0, 0, 1000, 1000), ....
+"""
