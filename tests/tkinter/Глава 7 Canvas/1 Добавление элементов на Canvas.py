@@ -248,7 +248,7 @@ __y1 - конечной.
 указывает, что координаты будут представлять верхний левый угол прямоугольной
 области, в которой выводится текст
     С помощью параметра font можно задать шрифт, в том числе его высоту:
-    canvas.creat_text(10, 10, font="Arial 14", anchor=NW, text="Hello METANIT.COM", fill="#004D40")
+    canvas.create_text(10, 10, font="Arial 14", anchor=NW, text="Hello METANIT.COM", fill="#004D40")
     
     Вывод изображения
     
