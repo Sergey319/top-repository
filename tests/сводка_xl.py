@@ -67,6 +67,74 @@ for i in range(6, 21, 7):
         sv[f"{w}{i}"].border = Border(top=border_side)
     sv[f"o{i}"].border = Border(top=border_side, right=border_side)
 
+for i in range(7, 22, 7):
+    sv[f"b{i}"].border = Border(left=border_side, top=border_side)
+    sv.merge_cells(f"c{i}:d{i}")
+    sv[f"c{i}"] = "0-4 с."
+    sv[f"c{i}"].alignment = Alignment(horizontal="center")
+    sv[f"c{i}"].border = Border(left=border_side, top=border_side)
+    sv.merge_cells(f"e{i}:f{i}")
+    sv[f"e{i}"] = "5 с."
+    sv[f"e{i}"].alignment = Alignment(horizontal="center")
+    sv[f"e{i}"].border = Border(left=border_side, top=border_side)
+    sv.merge_cells(f"g{i}:h{i}")
+    sv[f"g{i}"] = "6 с."
+    sv[f"g{i}"].alignment = Alignment(horizontal="center")
+    sv[f"g{i}"].border = Border(left=border_side, top=border_side)
+    sv.merge_cells(f"i{i}:j{i}")
+    sv[f"i{i}"] = "7 с."
+    sv[f"i{i}"].alignment = Alignment(horizontal="center")
+    sv[f"i{i}"].border = Border(left=border_side, top=border_side)
+    sv.merge_cells(f"k{i}:l{i}")
+    sv[f"k{i}"] = "некондиция"
+    sv[f"k{i}"].alignment = Alignment(horizontal="center")
+    sv[f"k{i}"].border = Border(left=border_side, top=border_side)
+    sv[f"m{i}"]= "всего"
+    sv[f"m{i}"].border = Border(left=border_side, top=border_side)
+    sv[f"n{i}"] = "общая"
+    sv[f"n{i}"].border = Border(left=border_side, top=border_side)
+    sv[f"o{i}"] = "%"
+    sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side)
+
+for i in range(8, 23, 7):
+    sv[f"b{i}"].border =Border(left=border_side, top=border_side)
+    for w in ["cd", "ef", "gh", "ij", "kl", "mn"]:
+        sv[f"{w[0]}{i}"] = "шт."
+        sv[f"{w[0]}{i}"].border = Border(left=border_side, top=border_side)
+        sv[f"{w[1]}{i}"] = "м\u00B3"
+        sv[f"{w[1]}{i}"].border = Border(left=border_side, top=border_side)
+    sv[f"o{i}"] = "выхода"
+    sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side)
+
+for i in range(9, 24, 7):
+    sv[f"b{i}"] = "4 м"
+    sv[f"b{i}"].alignment = Alignment(horizontal="center")
+    for w in "bcdefghijklmno":
+        sv[f"{w}{i}"].border = Border(left=border_side, top=border_side)
+    sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side)
+
+for i in range(10, 25, 7):
+    sv[f"b{i}"] = "3 м"
+    sv[f"b{i}"].alignment = Alignment(horizontal="center")
+    for w in "bcdefghijklmno":
+        sv[f"{w}{i}"].border = Border(left=border_side, top=border_side)
+    sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side)
+
+for i in range(11, 26, 7):
+    sv[f"b{i}"] = "2 м"
+    sv[f"b{i}"].alignment = Alignment(horizontal="center")
+    for w in "bcdefghijklmno":
+        sv[f"{w}{i}"].border = Border(left=border_side, top=border_side)
+    sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side)
+
+for i in range(12, 27, 7):
+    sv[f"b{i}"] = "Итого:"
+    for w in "bcdefghijklmno":
+        sv[f"{w}{i}"].border = Border(left=border_side, top=border_side, bottom=border_side)
+    sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side, bottom=border_side)
+
+
+
 
 
 
