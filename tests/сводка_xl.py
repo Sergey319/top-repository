@@ -133,12 +133,17 @@ for i in range(12, 27, 7):
         sv[f"{w}{i}"].border = Border(left=border_side, top=border_side, bottom=border_side)
     sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side, bottom=border_side)
 
+sv_xl.save(filename="сводка.xlsx")
 
-
-
-
-
-
+import excel2img
+excel2img.export_img("сводка.xlsx", "sv.png", "")
 
 
 sv_xl.save(filename="сводка.xlsx")
+
+
+
+
+
+
+
