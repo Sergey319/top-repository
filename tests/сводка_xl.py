@@ -4,23 +4,32 @@ from openpyxl.styles import *
 sv_xl = Workbook()
 sv = sv_xl.active
 
-border_side = Side(border_style="hair")
+border = Side(color="000000", border_style="hair")
+for r in range(1, 26):
+    sv[f"a{r}"].border = Border(left=border)
+    sv[f"n{r}"].border = Border(right=border)
+    for c in "bcdefghijklmn":
+        sv[f"{c}{r}"].border = Border(top=border, bottom=border)
+sv["d1"].border = Border(left=border)
+sv["c1"] = "здарова!"
+
+"""border_side = Side(border_style="hair")
 border = Border(top=border_side,
                 right=border_side,
                 bottom=border_side,
                 left=border_side)
-
-sv["b2"] = "ДАТА"
-sv["b2"].border = Border(left=border_side, top=border_side)
-sv.merge_cells("c2:d2")
-sv["c2"].border = Border(top=border_side)
-sv["d2"].border = Border(right=border_side)
-sv["e2"] = "БРИГАДА"
-sv["e2"].border = Border(top=border_side)
-sv.merge_cells("g2:o2")
-sv["f2"].border = Border(top=border_side)
-sv["g2"].border = Border(top=border_side)
-sv["o2"].border = Border(right=border_side)
+"""
+"""sv["a1"] = "ДАТА"
+sv["a1"].border = Border(left=border_side, top=border_side)
+sv.merge_cells("c1:d1")
+sv["c1"].border = Border(top=border_side)
+sv["d1"].border = Border(right=border_side)
+sv["e1"] = "БРИГАДА"
+sv["e1"].border = Border(top=border_side)
+sv.merge_cells("g1:o1")
+sv["f1"].border = Border(top=border_side)
+sv["g1"].border = Border(top=border_side)
+sv["o1"].border = Border(right=border_side)
 
 sv["b3"] = "Распилено пиловочника"
 sv["b3"].border = Border(left=border_side, top=border_side)
@@ -132,18 +141,22 @@ for i in range(12, 27, 7):
     for w in "bcdefghijklmno":
         sv[f"{w}{i}"].border = Border(left=border_side, top=border_side, bottom=border_side)
     sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side, bottom=border_side)
+"""
+sv_xl.save(filename="svodka.xlsx")
 
-sv_xl.save(filename="сводка.xlsx")
+from aspose.cells import Workbook, PageOrientationType, PaperSizeType
+workbook = Workbook("svodka.xlsx")
+worksheet = workbook.worksheets[0]
 
-import excel2img
-excel2img.export_img("сводка.xlsx", "sv.png", "")
+worksheet.page_setup.paper_size = PaperSizeType.PAPER_A4
+worksheet.page_setup.orientation = PageOrientationType.LANDSCAPE
+worksheet.page_setup.top_margin = 0.0
+worksheet.page_setup.left_margin = 0.0
+worksheet.page_setup.right_margin = 0.0
+worksheet.page_setup.bottom_margin = 0.0
+worksheet.page_setup.zoom = 90
+worksheet.page_setup.center_vertically = True
+worksheet.page_setup.center_horizontally = True
 
 
-sv_xl.save(filename="сводка.xlsx")
-
-
-
-
-
-
-
+workbook.save("Out.jpg")
