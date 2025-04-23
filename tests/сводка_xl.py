@@ -11,7 +11,7 @@ for r in range(1, 26):
     for c in "bcdefghijklmn":
         sv[f"{c}{r}"].border = Border(top=border, bottom=border)
 sv["d1"].border = Border(left=border)
-sv["c1"] = "здарова!"
+sv["c1"] = "здарова!!!"
 
 """border_side = Side(border_style="hair")
 border = Border(top=border_side,
