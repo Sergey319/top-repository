@@ -4,27 +4,59 @@ from openpyxl.styles import *
 sv_xl = Workbook()
 sv = sv_xl.active
 
-border = Side(color="000000", border_style="hair")
+border = Side(color="000000", border_style="thin")
+t = Border(top=border)
+tb = Border(top=border, bottom=border)
+lt = Border(left=border, top=border)
+rt = Border(right=border, top=border)
+ltb = Border(left=border, top=border, bottom=border)
+ltr = Border(left=border, top=border, right=border)
+ltrb = Border(left=border, top=border, right=border, bottom=border)
+
+borders_cells = (  lt,   t,   t,  lt,   t,   t,   t,   t,   t,   t,   t,   t,   t,  rt,
+                   lt,   t,   t,  lt,   t,   t,   t,   t,   t,  lt,   t,   t,   t,  rt,
+                   lt,   t,   t,  lt,   t,   t,   t,   t,   t,  lt,   t,   t,   t,  rt,
+                   lt,   t,   t,  lt,   t,   t,   t,   t,   t,  lt,   t,   t,   t,  rt,
+                   lt,   t,   t,   t,   t,   t,   t,   t,   t,   t,   t,   t,   t,  rt,
+                   lt,  lt,   t,  lt,   t,  lt,   t,  lt,   t,  lt,   t,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                   lt,   t,   t,   t,   t,   t,   t,   t,   t,   t,   t,   t,   t,  rt,
+                   lt,  lt,   t,  lt,   t,  lt,   t,  lt,   t,  lt,   t,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                   lt,   t,   t,   t,   t,   t,   t,   t,   t,   t,   t,   t,   t,  rt,
+                   lt,  lt,   t,  lt,   t,  lt,   t,  lt,   t,  lt,   t,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                   lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
+                  ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltrb)
+
+i = 0
 for r in range(1, 26):
     for c in "abcdefghijklmn":
-        sv.row_dimensions[r].height = 20
+        if i <= len(borders_cells) - 1:
+            sv[f"{c}{r}"].border = borders_cells[i]
+            i += 1
         sv.column_dimensions[c].width = 10
-        sv[f"{c}{r}"].border = Border(top=border,
-                                      bottom=border,
-                                      left=border,
-                                      right=border)
+        sv.row_dimensions[r].height = 20
 
-sv.merge_cells("b1:c1")
-sv["b1"].border = Border(top=border, bottom=border)
+#for cell in borders_cells:
+#    sv.column_dimensions[cell[0][0]].width = 10
+#    sv.row_dimensions[int(cell[0][1])].height = 20
+#    #sv[cell[0]].font = Font(name="Calibri", size=14)
+#    #sv[cell[0]].alignment = Alignment(vertical="center")
+#    sv[cell[0]].border = cell[1]
+#    sv[cell[0]] = cell[0]
 
-sv["a1"] = "ДАТА"
-sv["a1"].border = Border(bottom=border, left=border, top=border)
-sv["a1"].font = Font(name="Calibri", size=14)
-sv["a1"].alignment = Alignment(vertical="bottom")
 
-sv["a2"] = "Распилено пиловочника"
-sv["a2"].font = Font(name="Calibri", size=14)
-sv["a2"].alignment = Alignment(vertical="bottom")
 
 """border_side = Side(border_style="hair")
 border = Border(top=border_side,
@@ -155,11 +187,11 @@ for i in range(12, 27, 7):
         sv[f"{w}{i}"].border = Border(left=border_side, top=border_side, bottom=border_side)
     sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side, bottom=border_side)
 """
-sv_xl.save(filename="svodka.xlsx")
+sv_xl.save(filename="сводка.xlsx")
 
 from aspose.cells import Workbook, PageOrientationType, PaperSizeType
-workbook = Workbook("svodka.xlsx")
-worksheet = workbook.worksheets[0]
+workbook = Workbook("сводка.xlsx")
+worksheet = workbook.worksheets.get(0)
 
 worksheet.page_setup.paper_size = PaperSizeType.PAPER_A4
 worksheet.page_setup.orientation = PageOrientationType.LANDSCAPE
