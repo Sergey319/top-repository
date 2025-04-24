@@ -6,12 +6,25 @@ sv = sv_xl.active
 
 border = Side(color="000000", border_style="hair")
 for r in range(1, 26):
-    sv[f"a{r}"].border = Border(left=border)
-    sv[f"n{r}"].border = Border(right=border)
-    for c in "bcdefghijklmn":
-        sv[f"{c}{r}"].border = Border(top=border, bottom=border)
-sv["d1"].border = Border(left=border)
-sv["c1"] = "здарова!!!"
+    for c in "abcdefghijklmn":
+        sv.row_dimensions[r].height = 20
+        sv.column_dimensions[c].width = 10
+        sv[f"{c}{r}"].border = Border(top=border,
+                                      bottom=border,
+                                      left=border,
+                                      right=border)
+
+sv.merge_cells("b1:c1")
+sv["b1"].border = Border(top=border, bottom=border)
+
+sv["a1"] = "ДАТА"
+sv["a1"].border = Border(bottom=border, left=border, top=border)
+sv["a1"].font = Font(name="Calibri", size=14)
+sv["a1"].alignment = Alignment(vertical="bottom")
+
+sv["a2"] = "Распилено пиловочника"
+sv["a2"].font = Font(name="Calibri", size=14)
+sv["a2"].alignment = Alignment(vertical="bottom")
 
 """border_side = Side(border_style="hair")
 border = Border(top=border_side,
