@@ -12,6 +12,7 @@ rt = Border(right=border, top=border)
 ltb = Border(left=border, top=border, bottom=border)
 ltr = Border(left=border, top=border, right=border)
 ltrb = Border(left=border, top=border, right=border, bottom=border)
+
 # отрисовка таблицы
 borders_cells = (  lt,   t,   t,  lt,   t,   t,   t,   t,   t,   t,   t,   t,   t,  rt,
                    lt,   t,   t,  lt,   t,   t,   t,   t,   t,  lt,   t,   t,   t,  rt,
@@ -39,6 +40,7 @@ borders_cells = (  lt,   t,   t,  lt,   t,   t,   t,   t,   t,   t,   t,   t,   
                    lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
                   ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltrb)
 
+# цикл отрисовки
 i = 0
 for r in range(1, 26):
     for c in "abcdefghijklmn":
