@@ -12,7 +12,7 @@ rt = Border(right=border, top=border)
 ltb = Border(left=border, top=border, bottom=border)
 ltr = Border(left=border, top=border, right=border)
 ltrb = Border(left=border, top=border, right=border, bottom=border)
-
+# отрисовка таблицы
 borders_cells = (  lt,   t,   t,  lt,   t,   t,   t,   t,   t,   t,   t,   t,   t,  rt,
                    lt,   t,   t,  lt,   t,   t,   t,   t,   t,  lt,   t,   t,   t,  rt,
                    lt,   t,   t,  lt,   t,   t,   t,   t,   t,  lt,   t,   t,   t,  rt,
