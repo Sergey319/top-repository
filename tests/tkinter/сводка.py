@@ -84,6 +84,6 @@ table_lines = ([66, 45, 906, 45],
 for line in table_lines:
     table.create_line(line)
 
-table.create_text(68, 64, text="ДАТА", font="Calibri 11", anchor=SW)
+table.create_text(68, 64, text="ДАТА", font="Calibri 9", anchor=SW)
 
 summary.mainloop()

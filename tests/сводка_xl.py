@@ -4,6 +4,7 @@ from openpyxl.styles import *
 sv_xl = Workbook()
 sv = sv_xl.active
 
+"""установка линий ячеек"""
 border = Side(color="000000", border_style="thin")
 t = Border(top=border)
 tb = Border(top=border, bottom=border)
@@ -13,7 +14,7 @@ ltb = Border(left=border, top=border, bottom=border)
 ltr = Border(left=border, top=border, right=border)
 ltrb = Border(left=border, top=border, right=border, bottom=border)
 
-# отрисовка таблицы
+"""отрисовка таблицы линиями (A1:N25)"""
 borders_cells = (  lt,   t,   t,  lt,   t,   t,   t,   t,   t,   t,   t,   t,   t,  rt,
                    lt,   t,   t,  lt,   t,   t,   t,   t,   t,  lt,   t,   t,   t,  rt,
                    lt,   t,   t,  lt,   t,   t,   t,   t,   t,  lt,   t,   t,   t,  rt,
@@ -40,7 +41,7 @@ borders_cells = (  lt,   t,   t,  lt,   t,   t,   t,   t,   t,   t,   t,   t,   
                    lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
                   ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltrb)
 
-# цикл отрисовки
+"""цикл отрисовки и установка размеров строк (20 ед.) и столбцов (10 ед.)"""
 i = 0
 for r in range(1, 26):
     for c in "abcdefghijklmn":
@@ -50,13 +51,37 @@ for r in range(1, 26):
         sv.column_dimensions[c].width = 10
         sv.row_dimensions[r].height = 20
 
-#for cell in borders_cells:
-#    sv.column_dimensions[cell[0][0]].width = 10
-#    sv.row_dimensions[int(cell[0][1])].height = 20
-#    #sv[cell[0]].font = Font(name="Calibri", size=14)
-#    #sv[cell[0]].alignment = Alignment(vertical="center")
-#    sv[cell[0]].border = cell[1]
-#    sv[cell[0]] = cell[0]
+
+"""установка в ячейку текста и его выравнивание"""
+text_cells = [
+    # cell, value, alignment
+    # "", "", None
+    # пример
+    # "A1", "text", Alignment(vertical="center", horizontal="center")
+    ["A1", "ДАТА", None],
+    ["D1", "БРИГАДА", None],
+    ["A2", "Распилено пиловочника", None],
+    ["D2", "штук", Alignment(horizontal="center")]
+]
+
+"""цикл установки в ячейку текста и его выравнивание"""
+i = 0
+fontName = "Calibri"
+size = 11
+while i <= len(text_cells) - 1:
+    sv[f"{text_cells[i][0]}"] = f"{text_cells[i][1]}"
+    sv[f"{text_cells[i][0]}"].font = Font(name=fontName, size=size)
+    if text_cells[i][2]:
+        sv[f"{text_cells[i][0]}"].alignment = text_cells[i][2]
+    i += 1
+
+sv.merge_cells("E1:N1")
+sv.merge_cells("D2:I2")
+#sv["a1"] = "ДАТА"
+#sv["a1"].font = Font(name="Calibri", size=14)
+## horizontal= 'centerContinuous', 'distributed', 'general', 'center', 'left', 'justify', 'right', 'fill'
+## vertical= 'top', 'justify', 'distributed', 'bottom', 'center'
+#sv["a1"].alignment = Alignment(vertical=None, horizontal=None)
 
 
 
@@ -205,5 +230,11 @@ worksheet.page_setup.zoom = 90
 worksheet.page_setup.center_vertically = True
 worksheet.page_setup.center_horizontally = True
 
+#import os
+#
+#path = fr"C:\Users\SERGO\Documents\апрель"
+#os.makedirs(path)
+#date = 25.04
+#workbook.save(fr"C:\Users\SERGO\Documents\апрель\Сводка{date}.jpg")
 
-workbook.save("Out.jpg")
+workbook.save(fr"Сводка.jpg")
