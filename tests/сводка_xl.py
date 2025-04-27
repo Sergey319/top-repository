@@ -1,3 +1,7 @@
+"""
+Отрисовка таблицы сводки, заполнение начальным текстом,
+сохранение в xlsx и в jpg в определенный каталог
+"""
 from openpyxl import *
 from openpyxl.styles import *
 
@@ -41,185 +45,147 @@ borders_cells = (  lt,   t,   t,  lt,   t,   t,   t,   t,   t,   t,   t,   t,   
                    lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt,  lt, ltr,
                   ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltb, ltrb)
 
-"""цикл отрисовки и установка размеров строк (20 ед.) и столбцов (10 ед.)"""
-i = 0
-for r in range(1, 26):
-    for c in "abcdefghijklmn":
-        if i <= len(borders_cells) - 1:
-            sv[f"{c}{r}"].border = borders_cells[i]
-            i += 1
-        sv.column_dimensions[c].width = 10
-        sv.row_dimensions[r].height = 20
-
-
-"""установка в ячейку текста и его выравнивание"""
+"""установка в ячейку текста, его выравнивание и объединение ячеек"""
 text_cells = [
-    # cell, value, alignment
-    # "", "", None
+    # cell, value, alignment, merge_cells
+    # "", "", None, None
     # пример
-    # "A1", "text", Alignment(vertical="center", horizontal="center")
-    ["A1", "ДАТА", None],
-    ["D1", "БРИГАДА", None],
-    ["A2", "Распилено пиловочника", None],
-    ["D2", "штук", Alignment(horizontal="center")]
+    # "A1", "text", Alignment(vertical="center", horizontal="center"), "A3"
+    ["A1", "ДАТА", None, None],
+    ["D1", "БРИГАДА", None, None],
+    ["E1", "", None, "N1"],
+    ["A2", "Распилено пиловочника", None, None],
+    ["D2", "штук", Alignment(horizontal="center"), "I2"],
+    ["J2", "м\u00B3", Alignment(horizontal="center"), "N2"],
+    ["A3", "диаметр", None, None],
+    ["B3", "", None, "C3"],
+    ["D3", "", Alignment(horizontal="center"), "I3"],
+    ["J3", "", Alignment(horizontal="center"), "N3"],
+    ["A4", "диаметр", None, None],
+    ["B4", "", None, "C4"],
+    ["D4", "", Alignment(horizontal="center"), "I4"],
+    ["J4", "", Alignment(horizontal="center"), "N4"],
+    ["B5", "НАПИЛЕНО ДОСКИ", None, None],
+    ["D5", "", Alignment(horizontal="center"), "E5"],
+    ["B6", "0-4 с.", Alignment(horizontal="center"), "C6"],
+    ["D6", "5 с.", Alignment(horizontal="center"), "E6"],
+    ["F6", "6 с.", Alignment(horizontal="center"), "G6"],
+    ["H6", "7 с.", Alignment(horizontal="center"), "I6"],
+    ["J6", "некондиция", Alignment(horizontal="center"), "K6"],
+    ["L6", "всего", None, None],
+    ["M6", "общая", None, None],
+    ["N6", "%", None, None],
+    ["B7", "шт.", None, None],
+    ["C7", "м\u00B3", None, None],
+    ["D7", "шт.", None, None],
+    ["E7", "м\u00B3", None, None],
+    ["F7", "шт.", None, None],
+    ["G7", "м\u00B3", None, None],
+    ["H7", "шт.", None, None],
+    ["I7", "м\u00B3", None, None],
+    ["J7", "шт.", None, None],
+    ["K7", "м\u00B3", None, None],
+    ["L7", "шт.", None, None],
+    ["M7", "м\u00B3", None, None],
+    ["N7", "выхода", None, None],
+    ["A8", "4 м", Alignment(horizontal="center"), None],
+    ["A9", "3 м", Alignment(horizontal="center"), None],
+    ["A10", "2 м", Alignment(horizontal="center"), None],
+    ["A11", "Итого:", None, None],
+    ["B12", "НАПИЛЕНО ДОСКИ", None, None],
+    ["D12", "", Alignment(horizontal="center"), "E12"],
+    ["B13", "0-4 с.", Alignment(horizontal="center"), "C13"],
+    ["D13", "5 с.", Alignment(horizontal="center"), "E13"],
+    ["F13", "6 с.", Alignment(horizontal="center"), "G13"],
+    ["H13", "7 с.", Alignment(horizontal="center"), "I13"],
+    ["J13", "некондиция", Alignment(horizontal="center"), "K13"],
+    ["L13", "всего", None, None],
+    ["M13", "общая", None, None],
+    ["N13", "%", None, None],
+    ["B14", "шт.", None, None],
+    ["C14", "м\u00B3", None, None],
+    ["D14", "шт.", None, None],
+    ["E14", "м\u00B3", None, None],
+    ["F14", "шт.", None, None],
+    ["G14", "м\u00B3", None, None],
+    ["H14", "шт.", None, None],
+    ["I14", "м\u00B3", None, None],
+    ["J14", "шт.", None, None],
+    ["K14", "м\u00B3", None, None],
+    ["L14", "шт.", None, None],
+    ["M14", "м\u00B3", None, None],
+    ["N14", "выхода", None, None],
+    ["A15", "4 м", Alignment(horizontal="center"), None],
+    ["A16", "3 м", Alignment(horizontal="center"), None],
+    ["A17", "2 м", Alignment(horizontal="center"), None],
+    ["A18", "Итого:", None, None],
+    ["B19", "НАПИЛЕНО ДОСКИ", None, None],
+    ["D19", "", Alignment(horizontal="center"), "E19"],
+    ["B20", "0-4 с.", Alignment(horizontal="center"), "C20"],
+    ["D20", "5 с.", Alignment(horizontal="center"), "E20"],
+    ["F20", "6 с.", Alignment(horizontal="center"), "G20"],
+    ["H20", "7 с.", Alignment(horizontal="center"), "I20"],
+    ["J20", "некондиция", Alignment(horizontal="center"), "K20"],
+    ["L20", "всего", None, None],
+    ["M20", "общая", None, None],
+    ["N20", "%", None, None],
+    ["B21", "шт.", None, None],
+    ["C21", "м\u00B3", None, None],
+    ["D21", "шт.", None, None],
+    ["E21", "м\u00B3", None, None],
+    ["F21", "шт.", None, None],
+    ["G21", "м\u00B3", None, None],
+    ["H21", "шт.", None, None],
+    ["I21", "м\u00B3", None, None],
+    ["J21", "шт.", None, None],
+    ["K21", "м\u00B3", None, None],
+    ["L21", "шт.", None, None],
+    ["M21", "м\u00B3", None, None],
+    ["N21", "выхода", None, None],
+    ["A22", "4 м", Alignment(horizontal="center"), None],
+    ["A23", "3 м", Alignment(horizontal="center"), None],
+    ["A24", "2 м", Alignment(horizontal="center"), None],
+    ["A25", "Итого:", None, None]
 ]
 
-"""цикл установки в ячейку текста и его выравнивание"""
-i = 0
-fontName = "Calibri"
-size = 11
-while i <= len(text_cells) - 1:
-    sv[f"{text_cells[i][0]}"] = f"{text_cells[i][1]}"
-    sv[f"{text_cells[i][0]}"].font = Font(name=fontName, size=size)
-    if text_cells[i][2]:
-        sv[f"{text_cells[i][0]}"].alignment = text_cells[i][2]
-    i += 1
+def rendering_table(bd_cells):
+    """цикл отрисовки и установка размеров строк (20 ед.) и столбцов (10 ед.)"""
+    index = 0
+    for r in range(1, 26):
+        for c in "abcdefghijklmn":
+            if index <= len(bd_cells) - 1:
+                sv[f"{c}{r}"].border = bd_cells[index]
+                index += 1
+            sv.column_dimensions[c].width = 10
+            sv.row_dimensions[r].height = 20
 
-sv.merge_cells("E1:N1")
-sv.merge_cells("D2:I2")
-#sv["a1"] = "ДАТА"
-#sv["a1"].font = Font(name="Calibri", size=14)
-## horizontal= 'centerContinuous', 'distributed', 'general', 'center', 'left', 'justify', 'right', 'fill'
-## vertical= 'top', 'justify', 'distributed', 'bottom', 'center'
-#sv["a1"].alignment = Alignment(vertical=None, horizontal=None)
+def setting_text(txt_cells, fontName, size):
+    """цикл установки в ячейку текста, его выравнивание и объединение ячеек"""
+    i = 0
+    while i <= len(txt_cells) - 1:
+        sv[f"{txt_cells[i][0]}"] = f"{txt_cells[i][1]}"
+        sv[f"{txt_cells[i][0]}"].font = Font(name=fontName,
+                                              size=size)
+        if txt_cells[i][2]:
+            sv[f"{txt_cells[i][0]}"].alignment = \
+            txt_cells[i][2]
+        if txt_cells[i][3]:
+            sv.merge_cells(
+                f"{txt_cells[i][0]}:{txt_cells[i][3]}")
+        i += 1
 
+setting_text(text_cells, "Calibri", 11)
+rendering_table(borders_cells)
 
-
-"""border_side = Side(border_style="hair")
-border = Border(top=border_side,
-                right=border_side,
-                bottom=border_side,
-                left=border_side)
-"""
-"""sv["a1"] = "ДАТА"
-sv["a1"].border = Border(left=border_side, top=border_side)
-sv.merge_cells("c1:d1")
-sv["c1"].border = Border(top=border_side)
-sv["d1"].border = Border(right=border_side)
-sv["e1"] = "БРИГАДА"
-sv["e1"].border = Border(top=border_side)
-sv.merge_cells("g1:o1")
-sv["f1"].border = Border(top=border_side)
-sv["g1"].border = Border(top=border_side)
-sv["o1"].border = Border(right=border_side)
-
-sv["b3"] = "Распилено пиловочника"
-sv["b3"].border = Border(left=border_side, top=border_side)
-sv["c3"].border = Border(top=border_side)
-sv["d3"].border = Border(top=border_side)
-sv.merge_cells("e3:j3")
-sv["e3"] = "штук"
-sv["e3"].alignment = Alignment(horizontal="center")
-sv["e3"].border = Border(left=border_side, top=border_side)
-sv.merge_cells("k3:o3")
-sv["k3"] = "всего м\u00B3"
-sv["k3"].alignment = Alignment(horizontal="center")
-sv["k3"].border = Border(left=border_side, top=border_side)
-sv["o3"].border = Border(right=border_side)
-
-sv["b4"] = "диаметр"
-sv["b4"].border = Border(left=border_side, top=border_side)
-sv["c4"].border = Border(top=border_side)
-sv["d4"].border = Border(top=border_side)
-sv.merge_cells("e4:j4")
-sv["e4"].border = Border(left=border_side, top=border_side)
-sv.merge_cells("k4:o4")
-sv["k4"].border = Border(left=border_side, top=border_side)
-sv["o4"].border = Border(right=border_side)
-
-sv["b5"] = "диаметр"
-sv["b5"].border = Border(left=border_side, top=border_side)
-sv["c5"].border = Border(top=border_side)
-sv["d5"].border = Border(top=border_side)
-sv.merge_cells("e5:j5")
-sv["e5"].border = Border(left=border_side, top=border_side)
-sv.merge_cells("k5:o5")
-sv["k5"].border = Border(left=border_side, top=border_side)
-sv["o5"].border = Border(right=border_side)
-
-for i in range(6, 21, 7):
-    sv[f"b{i}"].border = Border(left=border_side, top=border_side)
-    sv[f"c{i}"] = "НАПИЛЕНО ДОСКИ"
-    sv[f"c{i}"].border = Border(top=border_side)
-    sv[f"d{i}"].border = Border(top=border_side)
-    sv.merge_cells(f"e{i}:f{i}")
-    sv[f"e{i}"].border = Border(top=border_side)
-    for w in ["g", "h", "i", "j", "k", "l", "m", "n", "o"]:
-        sv[f"{w}{i}"].border = Border(top=border_side)
-    sv[f"o{i}"].border = Border(top=border_side, right=border_side)
-
-for i in range(7, 22, 7):
-    sv[f"b{i}"].border = Border(left=border_side, top=border_side)
-    sv.merge_cells(f"c{i}:d{i}")
-    sv[f"c{i}"] = "0-4 с."
-    sv[f"c{i}"].alignment = Alignment(horizontal="center")
-    sv[f"c{i}"].border = Border(left=border_side, top=border_side)
-    sv.merge_cells(f"e{i}:f{i}")
-    sv[f"e{i}"] = "5 с."
-    sv[f"e{i}"].alignment = Alignment(horizontal="center")
-    sv[f"e{i}"].border = Border(left=border_side, top=border_side)
-    sv.merge_cells(f"g{i}:h{i}")
-    sv[f"g{i}"] = "6 с."
-    sv[f"g{i}"].alignment = Alignment(horizontal="center")
-    sv[f"g{i}"].border = Border(left=border_side, top=border_side)
-    sv.merge_cells(f"i{i}:j{i}")
-    sv[f"i{i}"] = "7 с."
-    sv[f"i{i}"].alignment = Alignment(horizontal="center")
-    sv[f"i{i}"].border = Border(left=border_side, top=border_side)
-    sv.merge_cells(f"k{i}:l{i}")
-    sv[f"k{i}"] = "некондиция"
-    sv[f"k{i}"].alignment = Alignment(horizontal="center")
-    sv[f"k{i}"].border = Border(left=border_side, top=border_side)
-    sv[f"m{i}"]= "всего"
-    sv[f"m{i}"].border = Border(left=border_side, top=border_side)
-    sv[f"n{i}"] = "общая"
-    sv[f"n{i}"].border = Border(left=border_side, top=border_side)
-    sv[f"o{i}"] = "%"
-    sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side)
-
-for i in range(8, 23, 7):
-    sv[f"b{i}"].border =Border(left=border_side, top=border_side)
-    for w in ["cd", "ef", "gh", "ij", "kl", "mn"]:
-        sv[f"{w[0]}{i}"] = "шт."
-        sv[f"{w[0]}{i}"].border = Border(left=border_side, top=border_side)
-        sv[f"{w[1]}{i}"] = "м\u00B3"
-        sv[f"{w[1]}{i}"].border = Border(left=border_side, top=border_side)
-    sv[f"o{i}"] = "выхода"
-    sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side)
-
-for i in range(9, 24, 7):
-    sv[f"b{i}"] = "4 м"
-    sv[f"b{i}"].alignment = Alignment(horizontal="center")
-    for w in "bcdefghijklmno":
-        sv[f"{w}{i}"].border = Border(left=border_side, top=border_side)
-    sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side)
-
-for i in range(10, 25, 7):
-    sv[f"b{i}"] = "3 м"
-    sv[f"b{i}"].alignment = Alignment(horizontal="center")
-    for w in "bcdefghijklmno":
-        sv[f"{w}{i}"].border = Border(left=border_side, top=border_side)
-    sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side)
-
-for i in range(11, 26, 7):
-    sv[f"b{i}"] = "2 м"
-    sv[f"b{i}"].alignment = Alignment(horizontal="center")
-    for w in "bcdefghijklmno":
-        sv[f"{w}{i}"].border = Border(left=border_side, top=border_side)
-    sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side)
-
-for i in range(12, 27, 7):
-    sv[f"b{i}"] = "Итого:"
-    for w in "bcdefghijklmno":
-        sv[f"{w}{i}"].border = Border(left=border_side, top=border_side, bottom=border_side)
-    sv[f"o{i}"].border = Border(left=border_side, top=border_side, right=border_side, bottom=border_side)
-"""
+"""сохранение таблицы в xlsx в каталог с выполняемым файлом py"""
 sv_xl.save(filename="сводка.xlsx")
 
 from aspose.cells import Workbook, PageOrientationType, PaperSizeType
+
 workbook = Workbook("сводка.xlsx")
 worksheet = workbook.worksheets.get(0)
 
+"""установка таблицы в листа A4 для печати или отправки"""
 worksheet.page_setup.paper_size = PaperSizeType.PAPER_A4
 worksheet.page_setup.orientation = PageOrientationType.LANDSCAPE
 worksheet.page_setup.top_margin = 0.0
@@ -230,11 +196,14 @@ worksheet.page_setup.zoom = 90
 worksheet.page_setup.center_vertically = True
 worksheet.page_setup.center_horizontally = True
 
-#import os
-#
-#path = fr"C:\Users\SERGO\Documents\апрель"
-#os.makedirs(path)
-#date = 25.04
-#workbook.save(fr"C:\Users\SERGO\Documents\апрель\Сводка{date}.jpg")
+import os
 
-workbook.save(fr"Сводка.jpg")
+"""сохранение листа в jpg в определенный каталог"""
+path = fr"C:\Users\SERGO\Documents\апрель"
+if not os.path.isdir(path):
+    os.makedirs(path)
+date = 25.04
+workbook.save(fr"{path}\Сводка{date}.jpg")
+
+"""сохранение в jpg в каталог с выполняемым файлом py"""
+#workbook.save(fr"Сводка.jpg")
