@@ -211,7 +211,7 @@ def create_jpg():
     print_jpg(name)
 
     os.remove("сводка.xlsx")
-    os.remove(fr"Сводка{date}.jpg")
+    #os.remove(fr"Сводка{date}.jpg")
     #subprocess.call("/usr/bin/lpr " + fr"Сводка{date}.jpg", shell=True)
     """сохранение в jpg в каталог с выполняемым файлом py"""
     #workbook.save(fr"Сводка.jpg")
