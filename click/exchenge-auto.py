@@ -94,7 +94,7 @@ def conv_usdt_avax(pause):
     #print(f"цвет {pixel_color}")
     while pixel_color != (20, 20, 22):
         winsound.PlaySound("d0ceb42813793b7.mp3", winsound.SND_ALIAS)
-        time.sleep(5)
+        time.sleep(59)
         mouse.move(1800, 540)
         mouse.click()
         time.sleep(1)
