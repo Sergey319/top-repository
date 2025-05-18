@@ -1,6 +1,4 @@
 import time
-from time import sleep
-
 import pyautogui
 import mouse
 import winsound
@@ -12,8 +10,10 @@ def check(pause):
     screenshot = pyautogui.screenshot()
     pixel_color = screenshot.getpixel((795, 14))
     print(f"цвет {pixel_color}")
+    time.sleep(2)
     while pixel_color != (195, 220, 253):
-        time.sleep(pause)
+        winsound.PlaySound("*", winsound.SND_ALIAS)
+        time.sleep(pause + 3)
         screenshot = pyautogui.screenshot()
         pixel_color = screenshot.getpixel((795, 14))
         mouse.move(1000, 1000)
@@ -26,7 +26,7 @@ def expectation():
     # print(f"цвет {pixel_color}")
     while pixel_color != (175, 199, 101):
         time.sleep(pause + 2)
-        mouse.move(700, 1070)
+        mouse.move(1000, 1000)
         screenshot = pyautogui.screenshot()
         pixel_color = screenshot.getpixel((1830, 150))
         #print(f"цвет {pixel_color}")
@@ -93,8 +93,8 @@ def conv_usdt_avax(pause):
     pixel_color = screenshot.getpixel((1820, 170))
     #print(f"цвет {pixel_color}")
     while pixel_color != (20, 20, 22):
-        winsound.PlaySound("d0ceb42813793b7.mp3", winsound.SND_ALIAS)
-        time.sleep(5)
+        winsound.PlaySound("*", winsound.SND_ALIAS)
+        time.sleep(59)
         mouse.move(1800, 540)
         mouse.click()
         time.sleep(1)
